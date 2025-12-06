@@ -27,6 +27,11 @@ class Agent:
             api_key = os.environ.get("GOOGLE_API_KEY")
             
         if not api_key:
+            # Fallback to provided key if environment variable fails
+            api_key = "AIzaSyAL8-S0eT9lxPi8jYngDkNF7GKEfZ58r7U"
+            print(f"Warning: GOOGLE_API_KEY not found in env. Using fallback key for agent {name}.")
+            
+        if not api_key:
             print(f"Warning: GOOGLE_API_KEY not found for agent {name}. Agent may fail to generate.")
             
         self.client = genai.Client(api_key=api_key)

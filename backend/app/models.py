@@ -7,6 +7,7 @@ class DebateRequest(BaseModel):
 class DebateTurn(BaseModel):
     speaker: str
     content: str
+    round: int = 1
 
 class DebateResult(BaseModel):
     transcript: List[DebateTurn]
