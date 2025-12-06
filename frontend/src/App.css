@@ -166,6 +166,29 @@ h1 {
   margin-top: 2rem;
 }
 
+@media (max-width: 768px) {
+  .debate-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .debate-container {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .debate-form {
+    flex-direction: column;
+  }
+  
+  .start-btn {
+    width: 100%;
+  }
+}
+
 .debate-column {
   display: flex;
   flex-direction: column;
