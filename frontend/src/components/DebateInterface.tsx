@@ -24,8 +24,10 @@ const DebateInterface: React.FC = () => {
     setResult({ transcript: [], winner: '', confidence: 0, reason: '' });
     setStatusMessage('Initializing The Matrix...');
 
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
     try {
-      const response = await fetch('http://localhost:8080/api/debate/stream', {
+      const response = await fetch(`${apiUrl}/api/debate/stream`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
