@@ -31,3 +31,6 @@ images:
 
 substitutions:
   _API_URL: 'https://futuris-242775953468.asia-south1.run.app'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
