@@ -1,6 +1,7 @@
 export interface DebateTurn {
   speaker: string;
   content: string;
+  round: number;
 }
 
 export interface DebateResult {
