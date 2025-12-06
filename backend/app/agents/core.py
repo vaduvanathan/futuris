@@ -1,6 +1,6 @@
 import os
-import google.generativeai as genai
-from google.generativeai import types
+from google import genai
+from google.genai import types
 from typing import List, Optional, Any
 
 class Agent:
@@ -30,20 +30,35 @@ class Agent:
             print(f"Warning: GOOGLE_API_KEY not found for agent {name}. Agent may fail to generate.")
             raise ValueError("GOOGLE_API_KEY not found. Please set it in the environment variables.")
             
-        genai.configure(api_key=api_key)
-        self.model_instance = genai.GenerativeModel(
-            model_name=self.model,
-            system_instruction=self.system_instruction,
-            tools=self.tools
-        )
+        self.client = genai.Client(api_key=api_key)
 
     def generate(self, prompt: str, context: Optional[List[Any]] = None) -> str:
         """Generates a response from the agent."""
         
         try:
-            response = self.model_instance.generate_content(
-                prompt,
-                generation_config=self.generation_config,
+            # Prepare config
+            # If generation_config is provided, use it. Otherwise create a new one.
+            # We assume generation_config is a dict or compatible object.
+            if self.generation_config:
+                if isinstance(self.generation_config, dict):
+                    config = types.GenerateContentConfig(**self.generation_config)
+                else:
+                    config = self.generation_config
+            else:
+                config = types.GenerateContentConfig()
+            
+            # Set system instruction
+            if self.system_instruction:
+                config.system_instruction = self.system_instruction
+                
+            # Set tools
+            if self.tools:
+                config.tools = self.tools
+
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=prompt,
+                config=config,
             )
             
             return response.text

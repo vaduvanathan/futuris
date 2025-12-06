@@ -1,7 +1,5 @@
 
 import os
-import google.generativeai as genai
-from google.generativeai import types
 from app.agents.core import Agent
 from app.agents.schemas import DebateVerdict
 
@@ -80,8 +78,8 @@ Your task is to analyze the debate between Neo, Agent Smith, and Morpheus.
 - You will receive the full transcript.
 - Output your verdict in strict JSON format.
 """,
-    generation_config=genai.GenerationConfig(
-        response_mime_type="application/json",
-        response_schema=DebateVerdict
-    )
+    generation_config={
+        "response_mime_type": "application/json",
+        "response_schema": DebateVerdict
+    }
 )
