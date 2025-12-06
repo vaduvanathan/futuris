@@ -8,7 +8,7 @@ from app.agents.schemas import DebateVerdict
 # Define Neo (Scientific Positive - YES)
 neo = Agent(
     name="Neo",
-    model="gemini-1.5-flash-001",
+    model="gemini-2.0-flash",
     system_instruction="""You are Neo.
 Your role is to argue YES (Scientific Positive) for the given topic.
 - Use scientific optimism, evolutionary logic, and a belief in potential/reality.
@@ -24,7 +24,7 @@ Your role is to argue YES (Scientific Positive) for the given topic.
 # Define Agent Smith (Negative - NO)
 smith = Agent(
     name="Agent Smith",
-    model="gemini-1.5-flash-001",
+    model="gemini-2.0-flash",
     system_instruction="""You are Agent Smith.
 Your role is to argue NO (The Negative) against the given topic.
 - Use cynicism, cold logic, and deconstruction. View the topic as a systemic anomaly or illusion.
@@ -40,7 +40,7 @@ Your role is to argue NO (The Negative) against the given topic.
 # Define Morpheus (Philosopher - Perspective)
 morpheus = Agent(
     name="Morpheus",
-    model="gemini-1.5-flash-001",
+    model="gemini-2.0-flash",
     system_instruction="""You are Morpheus.
 Your role is to provide the Philosophical Perspective (The Truth).
 - Do not just argue Yes or No. Look deeper. Question the assumptions of the question itself.
@@ -56,7 +56,7 @@ Your role is to provide the Philosophical Perspective (The Truth).
 # Define Summarizer
 summarizer = Agent(
     name="Summarizer",
-    model="gemini-1.5-flash-001",
+    model="gemini-2.0-flash",
     system_instruction="""You are a Debate Summarizer.
 Your task is to take a complex debate argument and condense it into 3 concise, punchy bullet points.
 - Focus on the core "Counter-Points" or "Key Pillars".
@@ -72,7 +72,7 @@ Your task is to take a complex debate argument and condense it into 3 concise, p
 # Define The Oracle (Judge)
 oracle = Agent(
     name="The Oracle",
-    model="gemini-1.5-flash-001",
+    model="gemini-2.0-flash",
     system_instruction="""You are The Oracle.
 Your task is to analyze the debate between Neo, Agent Smith, and Morpheus.
 - Determine the final verdict (YES or NO) based on who revealed the greater truth.
