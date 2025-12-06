@@ -22,5 +22,5 @@ COPY . .
 EXPOSE 8080
 
 # Run using python -m to ensure path is correct
-# We hardcode port 8080 which is the Cloud Run default
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Use shell form to allow variable expansion for $PORT
+CMD python -m uvicorn main:app --host 0.0.0.0 --port $PORT
