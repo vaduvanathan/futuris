@@ -1,5 +1,9 @@
 from dotenv import load_dotenv
 import os
+import sys
+
+# Debug print to check if app starts
+print("Starting application...", file=sys.stderr)
 
 # Load environment variables first, before importing any other modules
 load_dotenv()

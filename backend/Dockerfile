@@ -1,22 +1,26 @@
 FROM python:3.11-slim
 
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Install dependencies
+# Install system dependencies (gcc is often needed for some python packages)
+RUN apt-get update && apt-get install -y --no-install-recommends gcc && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application
+# Copy project
 COPY . .
 
-# Set Python path to include the current directory
-ENV PYTHONPATH=/app
-ENV PORT=8080
-
-# Expose the port
+# Expose port
 EXPOSE 8080
 
-# Run the application
-# Use shell form to ensure variable expansion if needed, but exec form is preferred.
-# We explicitly bind to 0.0.0.0 and use the PORT env var.
-CMD sh -c "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"
+# Run using python -m to ensure path is correct
+# We hardcode port 8080 which is the Cloud Run default
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
