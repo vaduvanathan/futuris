@@ -1,4 +1,5 @@
 steps:
+  # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
@@ -8,7 +9,25 @@ steps:
       'gcr.io/$PROJECT_ID/futuris-frontend',
       '.'
     ]
+    dir: 'frontend'
+
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'futuris-frontend'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/futuris-frontend'
+      - '--region'
+      - 'asia-south1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
 images:
   - 'gcr.io/$PROJECT_ID/futuris-frontend'
+
 substitutions:
-  _API_URL: 'http://localhost:8080'
+  _API_URL: 'https://futuris-242775953468.asia-south1.run.app'
